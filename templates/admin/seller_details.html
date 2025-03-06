@@ -46,7 +46,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href=" {% static 'assets_dashboard/index.html' %} " class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Customer Page</h3>
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Admin Page</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href=" {% static 'assets_dashboard/index.html' %} " class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href=" {% url 'admin_dashboard' %} " class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -68,10 +68,9 @@
                             <a href=" {% static 'assets_dashboard/element.html' %} " class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href=" {% static 'assets_dashboard/widget.html' %} " class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href=" {% static 'assets_dashboard/form.html' %} " class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href=" {% static 'assets_dashboard/table.html' %} " class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href=" {% static 'assets_dashboard/chart.html' %} " class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <a href=" {% url 'seller_details_view' %} " class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Seller Details</a>
+                    <a href=" {% url 'customer_details_view' %} " class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Customer Details</a>
+                    <a href=" {% url 'admin_product_view' %} " class="nav-item nav-link"><i class="fa fa-table me-2"></i>Products</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -172,7 +171,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -184,9 +183,9 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-center mb-4">
-                        <h6 class="mb-0">CUSTOMER's</h6>
+                        <h6 class="mb-0">SELLER's</h6>
                     </div>
-                        <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">
                             <table class="table table-bordered table-dark table-striped table-hover col-6">
                                 <thead>
                                     <tr>
@@ -196,25 +195,31 @@
                                         <th>Address</th>
                                         <th>Phone No.</th>
                                         <th>Document</th>
+                                        <th>Delete</th>
+                                        <th>Update</th>
                                     </tr>
                                 </thead>
-                                {% for customer in data %}
+                                {% for seller in data %}
                                 <tbody>
                                     <tr>
                                         <td>{{ forloop.counter}}</td>
-                                        <td>{{ customer.name }}</td>
-                                        <td>{{ customer.email }}</td>
-                                        <td>{{ customer.address }}</td>
-                                        <td>{{ customer.phone_number }}</td>
+                                        <td>{{ seller.name }}</td>
+                                        <td>{{ seller.email }}</td>
+                                        <td>{{ seller.address }}</td>
+                                        <td>{{ seller.phone_number }}</td>
                                         <td><img src="{{ seller.document.url }}" height="50px" width="50px"></td>
                                         <td>
-                                            <a href="{% url 'customer_details_delete' customer.id %}" class="btn btn-outline-danger">Delete</a>
+                                            <a href="{% url 'seller_details_delete' seller.id %}" class="btn btn-outline-primary">Delete</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'seller_details_update' seller.id %}" class="btn btn-outline-success">Update</a>
                                         </td>
                                     </tr>
                                 </tbody>
                                 {% endfor %}
                             </table>
                         </div>
+
 <!--                    <div class="table-responsive">-->
 <!--                        <table class="table text-start align-middle table-bordered table-hover mb-0">-->
 <!--                            <thead>-->

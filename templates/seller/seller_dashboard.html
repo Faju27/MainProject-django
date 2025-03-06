@@ -50,16 +50,16 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src=" {{ seller_data.document.url }} " alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Fajar</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0">{{ request.user }}</h6>
+                        <span>Seller</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href=" {% static 'assets_dashboard/index.html' %} " class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href=" {% url 'seller_dashboard' %} " class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -68,10 +68,9 @@
                             <a href=" {% static 'assets_dashboard/element.html' %} " class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href=" {% static 'assets_dashboard/widget.html' %} " class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href=" {% static 'assets_dashboard/form.html' %} " class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href=" {% static 'assets_dashboard/table.html' %} " class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href=" {% static 'assets_dashboard/chart.html' %} " class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <a href=" {% url 'request_view' %} " class="nav-item nav-link text-truncate"><i class="fa fa-bell me-2"></i>Customer Request</a>
+                    <a href=" {% url 'product_details_add' %} " class="nav-item nav-link"><i class="fa fa-plus me-2"></i>Add Product</a>
+                    <a href=" {% url 'product_view' %} " class="nav-item nav-link"><i class="fa fa-eye me-2"></i>My Product</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -100,7 +99,7 @@
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control bg-dark border-0" type="search" placeholder="Search">
                 </form>
-                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
@@ -143,7 +142,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -166,13 +165,13 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <img class="rounded-circle me-lg-2" src=" {{ seller_data.document.url }} " alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">{{ request.user }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="{% url 'logout' %}" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -184,248 +183,12 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">SELLER</h6>
-<!--                        <a href=" {% static 'assets_dashboard/' %} ">Show All</a>-->
+                        <h6 class="mb-0">HOME</h6>
                     </div>
-                    <div class="d-flex justify-content-center">
-                            <table class="table table-bordered table-dark table-striped table-hover col-6">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>E-mail</th>
-                                        <th>Address</th>
-                                        <th>Phone No.</th>
-                                        <th>Document</th>
-                                    </tr>
-                                </thead>
-                                {% for seller in data %}
-                                <tbody>
-                                    <tr>
-                                        <td>{{ forloop.counter}}</td>
-                                        <td>{{ seller.name }}</td>
-                                        <td>{{ seller.email }}</td>
-                                        <td>{{ seller.address }}</td>
-                                        <td>{{ seller.phone_number }}</td>
-                                        <td><img src="{{ seller.document.url }}" height="50px" width="50px"></td>
-                                    </tr>
-                                </tbody>
-                                {% endfor %}
-                            </table>
-                        </div>
-<!--                    <div class="table-responsive">-->
-<!--                        <table class="table text-start align-middle table-bordered table-hover mb-0">-->
-<!--                            <thead>-->
-<!--                                <tr class="text-white">-->
-<!--                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>-->
-<!--                                    <th scope="col">Date</th>-->
-<!--                                    <th scope="col">Invoice</th>-->
-<!--                                    <th scope="col">Status</th>-->
-<!--                                    <th scope="col" class="col-3">Action</th>-->
-<!--                                </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                                <tr>-->
-<!--                                    <td><input class="form-check-input" type="checkbox"></td>-->
-<!--                                    <td>01 Jan 2045</td>-->
-<!--                                    <td>INV-0123-->
-<!--                                    <td>Paid</td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="view.html">Edit</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Complete</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td><input class="form-check-input" type="checkbox"></td>-->
-<!--                                    <td>01 Jan 2045</td>-->
-<!--                                    <td>INV-0123-->
-<!--                                    <td>Paid</td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Edit</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Complete</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td><input class="form-check-input" type="checkbox"></td>-->
-<!--                                    <td>01 Jan 2045</td>-->
-<!--                                    <td>INV-0123-->
-<!--                                    <td>Paid</td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Edit</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Complete</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td><input class="form-check-input" type="checkbox"></td>-->
-<!--                                    <td>01 Jan 2045</td>-->
-<!--                                    <td>INV-0123-->
-<!--                                    <td>Paid</td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Edit</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Complete</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td><input class="form-check-input" type="checkbox"></td>-->
-<!--                                    <td>01 Jan 2045</td>-->
-<!--                                    <td>INV-0123-->
-<!--                                    <td>Paid</td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Edit</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Complete</a>-->
-<!--                                        <a class="btn btn-sm btn-primary" href="add.html">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
                 </div>
             </div>
             <!-- Recent Sales End -->
 
-
-<!--            &lt;!&ndash; Widgets Start &ndash;&gt;-->
-<!--            <div class="container-fluid pt-4 px-4">-->
-<!--                <div class="row g-4">-->
-<!--                    <div class="col-sm-12 col-md-6 col-xl-4">-->
-<!--                        <div class="h-100 bg-secondary rounded p-4">-->
-<!--                            <div class="d-flex align-items-center justify-content-between mb-2">-->
-<!--                                <h6 class="mb-0">Messages</h6>-->
-<!--                                <a href=" {% static 'assets_dashboard/' %} ">Show All</a>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-3">-->
-<!--                                <img class="rounded-circle flex-shrink-0" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 justify-content-between">-->
-<!--                                        <h6 class="mb-0">Jhon Doe</h6>-->
-<!--                                        <small>15 minutes ago</small>-->
-<!--                                    </div>-->
-<!--                                    <span>Short message goes here...</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-3">-->
-<!--                                <img class="rounded-circle flex-shrink-0" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 justify-content-between">-->
-<!--                                        <h6 class="mb-0">Jhon Doe</h6>-->
-<!--                                        <small>15 minutes ago</small>-->
-<!--                                    </div>-->
-<!--                                    <span>Short message goes here...</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-3">-->
-<!--                                <img class="rounded-circle flex-shrink-0" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 justify-content-between">-->
-<!--                                        <h6 class="mb-0">Jhon Doe</h6>-->
-<!--                                        <small>15 minutes ago</small>-->
-<!--                                    </div>-->
-<!--                                    <span>Short message goes here...</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center pt-3">-->
-<!--                                <img class="rounded-circle flex-shrink-0" src=" {% static 'assets_dashboard/img/user.jpg' %} " alt="" style="width: 40px; height: 40px;">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 justify-content-between">-->
-<!--                                        <h6 class="mb-0">Jhon Doe</h6>-->
-<!--                                        <small>15 minutes ago</small>-->
-<!--                                    </div>-->
-<!--                                    <span>Short message goes here...</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-12 col-md-6 col-xl-4">-->
-<!--                        <div class="h-100 bg-secondary rounded p-4">-->
-<!--                            <div class="d-flex align-items-center justify-content-between mb-4">-->
-<!--                                <h6 class="mb-0">Calender</h6>-->
-<!--                                <a href=" {% static 'assets_dashboard/' %} ">Show All</a>-->
-<!--                            </div>-->
-<!--                            <div id="calender"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-12 col-md-6 col-xl-4">-->
-<!--                        <div class="h-100 bg-secondary rounded p-4">-->
-<!--                            <div class="d-flex align-items-center justify-content-between mb-4">-->
-<!--                                <h6 class="mb-0">To Do List</h6>-->
-<!--                                <a href=" {% static 'assets_dashboard/' %} ">Show All</a>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex mb-2">-->
-<!--                                <input class="form-control bg-dark border-0" type="text" placeholder="Enter task">-->
-<!--                                <button type="button" class="btn btn-primary ms-2">Add</button>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-2">-->
-<!--                                <input class="form-check-input m-0" type="checkbox">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 align-items-center justify-content-between">-->
-<!--                                        <span>Short task goes here...</span>-->
-<!--                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-2">-->
-<!--                                <input class="form-check-input m-0" type="checkbox">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 align-items-center justify-content-between">-->
-<!--                                        <span>Short task goes here...</span>-->
-<!--                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-2">-->
-<!--                                <input class="form-check-input m-0" type="checkbox" checked>-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 align-items-center justify-content-between">-->
-<!--                                        <span><del>Short task goes here...</del></span>-->
-<!--                                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center border-bottom py-2">-->
-<!--                                <input class="form-check-input m-0" type="checkbox">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 align-items-center justify-content-between">-->
-<!--                                        <span>Short task goes here...</span>-->
-<!--                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center pt-2">-->
-<!--                                <input class="form-check-input m-0" type="checkbox">-->
-<!--                                <div class="w-100 ms-3">-->
-<!--                                    <div class="d-flex w-100 align-items-center justify-content-between">-->
-<!--                                        <span>Short task goes here...</span>-->
-<!--                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Widgets End &ndash;&gt;-->
-
-
-<!--            &lt;!&ndash; Footer Start &ndash;&gt;-->
-<!--            <div class="container-fluid pt-4 px-4">-->
-<!--                <div class="bg-secondary rounded-top p-4">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-12 col-sm-6 text-center text-sm-start">-->
-<!--                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. -->
-<!--                        </div>-->
-<!--                        <div class="col-12 col-sm-6 text-center text-sm-end">-->
-<!--                            &lt;!&ndash;/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/&ndash;&gt;-->
-<!--                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>-->
-<!--                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Footer End &ndash;&gt;-->
         </div>
         <!-- Content End -->
 

@@ -1,0 +1,17 @@
+dash.html
+
+{% block content %}
+
+{% endblock %}
+
+
+
+subdash.html
+top
+{% extends 'dash.html' %}
+{% block content %}
+
+......
+
+{% endblock %}
+

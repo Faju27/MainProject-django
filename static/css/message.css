@@ -1,0 +1,12 @@
+
+
+h6.success {
+    color : green;
+}
+h6.warning {
+    color : yellow;
+}
+
+h6.error {
+    color : red;
+}

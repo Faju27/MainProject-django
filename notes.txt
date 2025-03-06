@@ -1,0 +1,15 @@
+Requirements 31/12/24
+
+pip freeze >requirements.txt
+
+
+Search bar 07/01/25
+
+ > pip install django-filter
+
+settings -> INSTALLED_APPS = [
+    ...
+    'django_filters',
+]
+
+location map on django for input place api using OpenStreetMap
